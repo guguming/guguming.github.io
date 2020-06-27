@@ -254,8 +254,9 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-06-27 23:33:33" itemprop="dateCreated datePublished" datetime="2020-06-27T23:33:33+08:00">2020-06-27</time>
+              <time title="创建时间：2020-06-27 23:33:33 / 修改时间：23:59:13" itemprop="dateCreated datePublished" datetime="2020-06-27T23:33:33+08:00">2020-06-27</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -273,7 +274,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.6k</span>
+              <span>3.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -292,105 +293,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="搭建必要的环境">搭建必要的环境</h1>
-<h2 id="安装node.js">安装Node.js</h2>
-<p><a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">点击此处进入Node.js官方网站</a>下载安装包，此处选择的是长期支持版。</p>
-<figure>
-<img src="/2020/06/27/hexo-github-get-started/Untitled.png" alt><figcaption>hexo-github-get-started/Untitled.png</figcaption>
-</figure>
-<p>如果访问速度较慢，也可从<a href="https://npm.taobao.org/mirrors/node" target="_blank" rel="noopener">淘宝镜像源</a>下载（建议使用10.0及以上版本）。</p>
-<p>下载后，按照提示进行安装，一般保持默认选项即可。如果安装成功，按下<code>Win+R</code>输入<code>cmd</code>调出命令提示符，运行<code>node -v</code>和<code>npm -v</code>会产生软件的版本号。</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\username&gt;node <span class="literal">-v</span></span><br><span class="line">v12.<span class="number">18.1</span></span><br><span class="line"></span><br><span class="line">C:\Users\username&gt;npm <span class="literal">-v</span></span><br><span class="line"><span class="number">6.14</span>.<span class="number">5</span></span><br></pre></td></tr></table></figure>
-<p>配置淘宝镜像，加速国内访问。这样在后面安装一些功能包时会快一些。在命令提示符中运行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-<h2 id="安装git">安装Git</h2>
-<p>Git是一款版本控制工具，可<a href="https://git-scm.com/" target="_blank" rel="noopener">点击此处访问Git官网</a>下载其最新版本。</p>
-<figure>
-<img src="/2020/06/27/hexo-github-get-started/Untitled%201.png" alt><figcaption>hexo-github-get-started/Untitled%201.png</figcaption>
-</figure>
-<p>下载后，按照提示进行安装，一般保持默认选项即可。</p>
-<p>安装完成后，在桌面或Windows资源管理器某文件夹内右键单击，将出现两个新的选项：</p>
-<figure>
-<img src="/2020/06/27/hexo-github-get-started/Untitled%202.png" alt><figcaption>hexo-github-get-started/Untitled%202.png</figcaption>
-</figure>
-<p>在右键菜单中，点击<code>Git Bash Here</code>，将在该文件夹下弹出Git的控制台窗口。在这里输入<code>git —version</code>并回车，将提示Git软件的版本号。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git --version</span><br><span class="line">git version 2.27.0.windows.1</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="/2020/06/27/hexo-github-get-started/Untitled%203.png" alt><figcaption>hexo-github-get-started/Untitled%203.png</figcaption>
-</figure>
-<h2 id="安装hexo">安装Hexo</h2>
-<p>新建一个文件夹，用于存放博客网站相关文件。我选择的路径是<code>E:\3_Blogs\GitHub</code>。使用Windows资源管理器打开该目录，在空白处右键点击<code>Git Bash Here</code>，打开Git的控制台窗口。后续所有操作都将在Git控制台中进行。</p>
-<ol type="1">
-<li><p>执行下面的命令，安装Hexo：</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure></p>
-<p>安装完成后，输入<code>hexo -v</code>，如果显示版本号等信息说明安装成功：</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ hexo -v</span><br><span class="line">hexo: 4.2.1</span><br><span class="line">hexo-cli: 3.1.0</span><br><span class="line">os: Windows_NT 10.0.19041 win32 x64</span><br><span class="line">node: 12.18.1</span><br><span class="line">v8: 7.8.279.23-node.38</span><br><span class="line">uv: 1.38.0</span><br><span class="line">zlib: 1.2.11</span><br><span class="line">brotli: 1.0.7</span><br><span class="line">ares: 1.16.0</span><br><span class="line">modules: 72</span><br><span class="line">nghttp2: 1.41.0</span><br><span class="line">napi: 6</span><br><span class="line">llhttp: 2.0.4</span><br><span class="line">http_parser: 2.9.3</span><br><span class="line">openssl: 1.1.1g</span><br><span class="line">cldr: 37.0</span><br><span class="line">icu: 67.1</span><br><span class="line">tz: 2019c</span><br><span class="line">unicode: 13.0</span><br></pre></td></tr></table></figure></p></li>
-<li><p>依次执行<code>hexo init</code>和<code>npm install</code>，在该文件夹搭建必要的环境并安装必要的组件。</p></li>
-<li><p>执行<code>hexo g</code>生成静态网页，然后执行<code>hexo s</code>将生成的网页布置到本地服务器。这时，使用浏览器进入<a href="http://localhost:4000/" target="_blank" rel="noopener">http://localhost:4000/</a>就可以预览Hexo生成的网页了。在Git控制台窗口按下<code>Ctrl+C</code>可以关闭本地服务器。</p></li>
-</ol>
-<h1 id="配置和连接github">配置和连接GitHub</h1>
-<p>我们将要搭建的博客网站将托管于GitHub，需要前往<a href="https://github.com/" target="_blank" rel="noopener">GitHub官网</a>注册账号。记得取一个自己满意的用户名，这将成为你博客网址的一部分。</p>
-<h2 id="创建并配置仓库repository">创建并配置仓库（Repository）</h2>
-<p>点击右上角<code>+</code>号，再点击<code>New repository</code>（新建仓库）：</p>
-<p>在<code>Repository name</code>一栏准确填写<code>&lt;username&gt;.github.io</code>，<code>&lt;username&gt;</code>即为用户名，随后点击<code>Create repository</code>，如图所示。</p>
-<figure>
-<img src="/2020/06/27/hexo-github-get-started/Untitled%204.png" alt><figcaption>hexo-github-get-started/Untitled%204.png</figcaption>
-</figure>
-<p>这样“仓库”就建好了。在仓库页面，点击<code>Settings</code>进入设置页面，划到页面底部，找到<code>GitHub Pages</code>，点击<code>Choose a theme</code>任意选择一个主题，稍等几分钟，再回到设置页面，它会变成这样：</p>
-<figure>
-<img src="/2020/06/27/hexo-github-get-started/Untitled%205.png" alt><figcaption>hexo-github-get-started/Untitled%205.png</figcaption>
-</figure>
-<p>这时，点击对号后面的链接，就可以看到GitHub Pages生成的最初的网站了。</p>
-<h2 id="连接本地和github云端">连接本地和GitHub云端</h2>
-<ol type="1">
-<li><p>在Git控制台窗口中，执行下面的命令，其中的用户名和邮箱需要与GitHub账户保持一致：</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">"username"</span></span><br><span class="line">git config --global user.email <span class="string">"your@mail.com"</span></span><br></pre></td></tr></table></figure></p></li>
-<li><p>生成公钥：</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"your@mail.com"</span></span><br><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure></p>
-<p>将输出的内容复制（不要使用<code>Ctrl+C</code>，选中内容后，右键，点击<code>Copy</code>进行复制）。</p></li>
-<li><p>打开GitHub，点击自己的头像，再点击<code>Settings</code>进入账户设置页面。在左侧点击<code>SSH and GPG keys</code>，右侧点击<code>New SSH key</code>。<code>Title</code>可任取，在<code>Key</code>中粘贴前一步复制的内容，点击<code>Add SSH key</code>完成操作。</p></li>
-<li><p>在Git控制台窗口中，执行<code>ssh -T git@github.com</code>，出现下面的结果说明操作成功：</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br><span class="line">Hi guguming! You<span class="string">'ve successfully authenticated, but GitHub does not provide shell access.</span></span><br></pre></td></tr></table></figure></p>
-<p>如果出现以下提示，输入<code>yes</code>然后回车：</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Are you sure you want to <span class="built_in">continue</span> connecting (yse/no)?</span><br></pre></td></tr></table></figure></p></li>
-<li><p>配置<code>_config.yml</code></p></li>
-</ol>
-<h1 id="配置_config.yml">配置<code>_config.yml</code></h1>
-<p>位于文件夹根目录的<code>_config.yml</code>文件是网站的配置文件，通过修改这个文件可以进行网站的配置。后面还会遇到另一个<code>_config.yml</code>文件，位于主题文件夹下，是主题的配置文件。</p>
-<h2 id="连接github">连接GitHub</h2>
-<p>打开网站配置文件，在文件的末尾处，修改<code>Deployment</code>配置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: <span class="string">'git'</span></span><br><span class="line">  repository: https://github.com/guguming/guguming.github.io</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-<p>其中<code>repository</code>处的地址要修改为自己的GitHub仓库地址。</p>
-<h2 id="修改网站基本信息">修改网站基本信息</h2>
-<p>在网站配置文件中，有几个关键信息需要修改：</p>
-<ol type="1">
-<li><code>title</code>：网站标题，就是浏览器标签页上显示的标题</li>
-<li><code>subtitle</code>：网站副标题，在有的主题中显示为标题下面的一行小字</li>
-<li><code>author</code>：作者姓名，可显示在页面底部</li>
-<li><code>language</code>：中文为<code>zh-CN</code></li>
-</ol>
-<p>此外，为了便于在文章中插入图片，请将<code>post_asset_folder</code>的值设置为<code>true</code>。</p>
-<h1 id="写下第一篇文章">写下第一篇文章</h1>
-<p>在电脑上的博客文件夹调出Git控制台窗口，首先执行此命令安装一个扩展：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git</span><br></pre></td></tr></table></figure>
-<p>要新建文章，执行以下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new post <span class="string">"postname"</span></span><br></pre></td></tr></table></figure>
-<p>命令执行后，打开<code>\source\_posts</code>目录，会发现多了一个<code>.md</code>文件和同名的文件夹。接下来，你就可以在<code>.md</code>文件中写作，而同名的文件夹将用来存放文章中的图片等数据。编辑<code>.md</code>文件推荐使用<a href="https://typora.io/" target="_blank" rel="noopener">Typora</a>，它是一款简洁、优雅的Markdown编辑器。</p>
-<p>执行<code>hexo clean</code>清除缓存（也可不执行），执行<code>hexo g</code>生成网页，最后执行<code>hexo d</code>将网页发布到GitHub上，稍等一分钟后，就可以在博客网站上看到自己的新文章了！</p>
-<h1 id="下载并更换主题">下载并更换主题</h1>
-<p>Hexo官网提供了数百款主题，可<a href="https://hexo.io/themes/" target="_blank" rel="noopener">访问官网</a>进行下载。这里以笔者使用的<code>NexT</code>主题为例。</p>
-<p>首先在Hexo主题页面，搜索<code>NexT</code>，点击图片或标题即可找到下载方式。</p>
-<figure>
-<img src="/2020/06/27/hexo-github-get-started/Untitled%206.png" alt><figcaption>hexo-github-get-started/Untitled%206.png</figcaption>
-</figure>
-<p>对于<code>NexT</code>主题，其下载方式为：在电脑上的博客文件夹调出Git控制台窗口，执行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/next-theme/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
-<p>打开网站配置文件，在文件的末尾处，找到<code>Extensions</code>配置，修改<code>theme</code>为<code>next</code>：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Extensions</span></span><br><span class="line"><span class="comment">## Plugins: https://hexo.io/plugins/</span></span><br><span class="line"><span class="comment">## Themes: https://hexo.io/themes/</span></span><br><span class="line">theme: next</span><br></pre></td></tr></table></figure>
-<p>执行<code>hexo clean</code>清除缓存（也可不执行），执行<code>hexo g</code>生成网页，最后执行<code>hexo d</code>将网页发布到GitHub上，稍等一分钟后，就可以看到自己更换的新主题了！</p>
-<h1 id="参考文献">参考文献</h1>
-<p>[1] <a href="https://godweiyang.com/2018/04/13/hexo-blog/" target="_blank" rel="noopener">超详细Hexo+Github博客搭建小白教程 | 韦阳的博客</a></p>
-
+          <p>除了考试作文，没写过任何文章，这是我的真实写照。大学以来写过的文字，大多也只是各种申请书、各种汇报而已。在大学学习过程中，越发认识到，只有<strong>输入</strong>学不好知识，更重要的是<strong>输出</strong>。写博客或许是最适合我的一条路<del>（拍视频太费时间了我长得又不好看呜呜呜）</del>。希望这篇东拼西凑的文章也能帮助你更好地输出，更好地学习。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/06/27/hexo-github-get-started/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -462,7 +373,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.3k</span>
+              <span>2.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
