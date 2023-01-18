@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>基于 Hexo 和 GitHub 搭建个人博客网站</title>
+    <url>/2020/06/27/hexo-github-intro/</url>
+    <content><![CDATA[<p>除了考试作文，没写过任何文章，这是我的真实写照。大学以来写过的文字，大多也只是各种申请书、各种汇报而已。在大学学习过程中，越发认识到，只有<strong>输入</strong>学不好知识，更重要的是<strong>输出</strong>。写博客或许是最适合我的一条路~~（拍视频太费时间了我长得又不好看呜呜呜）~~。希望这篇东拼西凑的文章也能帮助你更好地输出，更好地学习。</p>
+<span id="more"></span>
+<h1>搭建必要的环境</h1>
+<h2 id="安装Node-js">安装Node.js</h2>
+<p><a href="https://nodejs.org/zh-cn/">点击此处进入Node.js官方网站</a>下载安装包，此处选择的是长期支持版。</p>
+<img src="/2020/06/27/hexo-github-intro/Untitled-0.png" class="">
+<p>如果访问速度较慢，也可从<a href="https://npm.taobao.org/mirrors/node">淘宝镜像源</a>下载（建议使用10.0及以上版本）。</p>
+<p>下载后，按照提示进行安装，一般保持默认选项即可。如果安装成功，按下<code>Win+R</code>输入<code>cmd</code>调出命令提示符，运行<code>node -v</code>和<code>npm -v</code>会产生软件的版本号。</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">C:\Users\username&gt;node <span class="literal">-v</span></span><br><span class="line">v12.<span class="number">18.1</span></span><br><span class="line"></span><br><span class="line">C:\Users\username&gt;npm <span class="literal">-v</span></span><br><span class="line"><span class="number">6.14</span>.<span class="number">5</span></span><br></pre></td></tr></table></figure>
+<p>配置淘宝镜像，加速国内访问。这样在后面安装一些功能包时会快一些。在命令提示符中运行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<h2 id="安装Git">安装Git</h2>
+<p>Git是一款版本控制工具，可<a href="https://git-scm.com/">点击此处访问Git官网</a>下载其最新版本。</p>
+<img src="/2020/06/27/hexo-github-intro/Untitled-1.png" class="">
+<p>下载后，按照提示进行安装，一般保持默认选项即可。</p>
+<p>安装完成后，在桌面或Windows资源管理器某文件夹内右键单击，将出现两个新的选项：</p>
+<img src="/2020/06/27/hexo-github-intro/Untitled-2.png" class="">
+<p>在右键菜单中，点击<code>Git Bash Here</code>，将在该文件夹下弹出Git的控制台窗口。在这里输入<code>git —version</code>并回车，将提示Git软件的版本号。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git --version</span><br><span class="line">git version 2.27.0.windows.1</span><br></pre></td></tr></table></figure>
+<h2 id="安装Hexo">安装Hexo</h2>
+<p>新建一个文件夹，用于存放博客网站相关文件。我选择的路径是<code>E:\3_Blogs\GitHub</code>。使用Windows资源管理器打开该目录，在空白处右键点击<code>Git Bash Here</code>，打开Git的控制台窗口。后续所有操作都将在Git控制台中进行。</p>
+<ol>
+<li>
+<p>执行下面的命令，安装Hexo：</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
+<p>安装完成后，输入<code>hexo -v</code>，如果显示版本号等信息说明安装成功：</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo -v</span><br><span class="line">hexo: 4.2.1</span><br><span class="line">hexo-cli: 3.1.0</span><br><span class="line">os: Windows_NT 10.0.19041 win32 x64</span><br><span class="line">node: 12.18.1</span><br><span class="line">v8: 7.8.279.23-node.38</span><br><span class="line">uv: 1.38.0</span><br><span class="line">zlib: 1.2.11</span><br><span class="line">brotli: 1.0.7</span><br><span class="line">ares: 1.16.0</span><br><span class="line">modules: 72</span><br><span class="line">nghttp2: 1.41.0</span><br><span class="line">napi: 6</span><br><span class="line">llhttp: 2.0.4</span><br><span class="line">http_parser: 2.9.3</span><br><span class="line">openssl: 1.1.1g</span><br><span class="line">cldr: 37.0</span><br><span class="line">icu: 67.1</span><br><span class="line">tz: 2019c</span><br><span class="line">unicode: 13.0</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>依次执行<code>hexo init</code>和<code>npm install</code>，在该文件夹搭建必要的环境并安装必要的组件。</p>
+</li>
+<li>
+<p>执行<code>hexo g</code>生成静态网页，然后执行<code>hexo s</code>将生成的网页布置到本地服务器。这时，使用浏览器进入<a href="http://localhost:4000/">http://localhost:4000/</a>就可以预览Hexo生成的网页了。在Git控制台窗口按下<code>Ctrl+C</code>可以关闭本地服务器。</p>
+</li>
+</ol>
+<h1>配置和连接GitHub</h1>
+<p>我们将要搭建的博客网站将托管于GitHub，需要前往<a href="https://github.com/">GitHub官网</a>注册账号。记得取一个自己满意的用户名，这将成为你博客网址的一部分。</p>
+<h2 id="创建并配置仓库（Repository）">创建并配置仓库（Repository）</h2>
+<p>点击右上角<code>+</code>号，再点击<code>New repository</code>（新建仓库）：</p>
+<img src="/2020/06/27/hexo-github-intro/Untitled-3.png" class="">
+<p>在<code>Repository name</code>一栏准确填写<code>&lt;username&gt;.github.io</code>，<code>&lt;username&gt;</code>即为用户名，随后点击<code>Create repository</code>，如图所示。</p>
+<img src="/2020/06/27/hexo-github-intro/Untitled-4.png" class="">
+<p>这样“仓库”就建好了。在仓库页面，点击<code>Settings</code>进入设置页面，划到页面底部，找到<code>GitHub Pages</code>，点击<code>Choose a theme</code>任意选择一个主题，稍等几分钟，再回到设置页面，它会变成这样：</p>
+<img src="/2020/06/27/hexo-github-intro/Untitled-5.png" class="">
+<p>这时，点击对号后面的链接，就可以看到GitHub Pages生成的最初的网站了。</p>
+<h2 id="配置SSH-key">配置SSH key</h2>
+<ol>
+<li>
+<p>在Git控制台窗口中，执行下面的命令，其中的用户名和邮箱需要与GitHub账户保持一致：</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;username&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;your@mail.com&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>生成公钥：</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;your@mail.com&quot;</span></span><br><span class="line"><span class="built_in">cat</span> ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+<p>将输出的内容复制（不要使用<code>Ctrl+C</code>，选中内容后，右键，点击<code>Copy</code>进行复制）。</p>
+</li>
+<li>
+<p>打开GitHub，点击自己的头像，再点击<code>Settings</code>进入账户设置页面。在左侧点击<code>SSH and GPG keys</code>，右侧点击<code>New SSH key</code>。<code>Title</code>可任取，在<code>Key</code>中粘贴前一步复制的内容，点击<code>Add SSH key</code>完成操作。</p>
+</li>
+<li>
+<p>在Git控制台窗口中，执行<code>ssh -T git@github.com</code>，出现下面的结果说明操作成功：</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br><span class="line">Hi guguming! You<span class="string">&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span></span><br></pre></td></tr></table></figure>
+<p>如果出现以下提示，输入<code>yes</code>然后回车：</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Are you sure you want to <span class="built_in">continue</span> connecting (yse/no)?</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="配置-config-yml">配置<code>_config.yml</code></h2>
+<p>位于文件夹根目录的<code>_config.yml</code>文件是网站的配置文件，通过修改这个文件可以进行网站的配置。后面还会遇到另一个<code>_config.yml</code>文件，位于主题文件夹下，是主题的配置文件。</p>
+<p>打开网站配置文件（推荐使用<a href="https://code.visualstudio.com/">Visual Studio Code</a>），在文件的末尾处，修改<code>Deployment</code>配置：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: <span class="string">&#x27;git&#x27;</span></span><br><span class="line">  repository: https://github.com/guguming/guguming.github.io</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<p>其中<code>repository</code>处的地址要修改为自己的GitHub仓库地址。</p>
+<h2 id="安装插件">安装插件</h2>
+<p>在Git控制台窗口中，执行下面的命令，以便正常显示图片：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm uninstall hexo-renderer-marked --save</span><br><span class="line">npm install hexo-renderer-markdown-it --save</span><br><span class="line">npm install hexo-image-link --save</span><br></pre></td></tr></table></figure>
+<p>执行下面的命令，用于部署到 GitHub：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<h1>修改网站基本信息</h1>
+<p>在网站配置文件中，有几个个性化信息需要修改：</p>
+<ol>
+<li><code>title</code>：网站标题，就是浏览器标签页上显示的标题</li>
+<li><code>subtitle</code>：网站副标题，在有的主题中显示为标题下面的一行小字</li>
+<li><code>author</code>：作者姓名，通常显示在页面底部</li>
+<li><code>language</code>：中文为<code>zh-CN</code></li>
+</ol>
+<p>此外，为了便于在文章中插入图片，请将<code>post_asset_folder</code>的值设置为<code>true</code>。</p>
+<h1>写下第一篇文章</h1>
+<p>在电脑上的博客文件夹调出Git控制台窗口，首先执行此命令安装一个扩展：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git</span><br></pre></td></tr></table></figure>
+<p>要新建文章，执行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new post <span class="string">&quot;postname&quot;</span></span><br></pre></td></tr></table></figure>
+<p>命令执行后，打开<code>\source\_posts</code>目录，会发现多了一个<code>.md</code>文件和同名的文件夹。接下来，你就可以在<code>.md</code>文件中写作，而同名的文件夹将用来存放文章中的图片等数据。编辑<code>.md</code>文件推荐使用<a href="https://typora.io/">Typora</a>，它是一款简洁、优雅的Markdown编辑器。</p>
+<p>执行<code>hexo clean</code>清除缓存（也可不执行），执行<code>hexo g</code>生成网页，最后执行<code>hexo d</code>将网页发布到GitHub上，稍等一分钟后，就可以在博客网站上看到自己的新文章了！</p>
+<h1>下载并更换主题</h1>
+<p>Hexo官网提供了数百款主题，可<a href="https://hexo.io/themes/">访问官网</a>进行下载。这里以笔者使用的<code>NexT</code>主题为例。</p>
+<p>首先在Hexo主题页面，搜索<code>NexT</code>，点击图片或标题即可找到下载方式。</p>
+<img src="/2020/06/27/hexo-github-intro/Untitled-6.png" class="">
+<p>对于<code>NexT</code>主题，其下载方式为：在电脑上的博客文件夹调出Git控制台窗口，执行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/next-theme/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
+<p>打开网站配置文件，在文件的末尾处，找到<code>Extensions</code>配置，修改<code>theme</code>为<code>next</code>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Extensions</span></span><br><span class="line"><span class="comment">## Plugins: https://hexo.io/plugins/</span></span><br><span class="line"><span class="comment">## Themes: https://hexo.io/themes/</span></span><br><span class="line">theme: next</span><br></pre></td></tr></table></figure>
+<p>执行<code>hexo clean</code>清除缓存（也可不执行），执行<code>hexo g</code>生成网页，最后执行<code>hexo d</code>将网页发布到GitHub上，稍等一分钟后，就可以看到自己更换的新主题了！</p>
+<h1>参考文献</h1>
+<p>[1] <a href="https://godweiyang.com/2018/04/13/hexo-blog/">超详细Hexo+Github博客搭建小白教程 | 韦阳的博客</a><br>
+[2] <a href="https://blog.csdn.net/rentonhe/article/details/123666769">Hexo 插入图片_疾风jf的博客-CSDN博客</a><br>
+[3] <a href="https://theme-next.js.org/">NexT - Theme for Hexo</a></p>
+]]></content>
+      <categories>
+        <category>瞎折腾</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>GitHub</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VS Code + Verilog 实现快乐编程</title>
+    <url>/2020/04/03/vscode-verilog/</url>
+    <content><![CDATA[<p>进入大二下学期，电脑软件喜加一。无论是四节连上、教室未知的课程安排，还是微信群里一遍又一遍的@所有人，都暗示着我们将要和某款软件度过新学期的美好时光……</p>
+<p>它就是：<strong>Xilinx Vivado</strong>，简称**“喂娃兜”<strong>，主要用于HDL（Hardware Description Language，硬件描述语言）的设计、综合与分析。此软件以其</strong>安装复杂**、<strong>启动缓慢</strong>、<strong>不支持中文</strong>以及<strong>玄学报错</strong>等特性广受学生好评，自带编辑器更是以朴实、简约著称，几乎没有任何辅助功能，时刻让人体会着最原始的编程意境。</p>
+<p>懒是人类进步的动力。我们总希望敲代码的过程能更简单些，好让我们专注于知识的学习——我们开始吧。</p>
+<span id="more"></span>
+<h2 id="一点点快乐">一点点快乐</h2>
+<h3 id="安装Visual-Studio-Code">安装Visual Studio Code</h3>
+<p>Visual Studio Code（下面简称VS Code）是一个由微软开发的开源代码编辑器，支持多个平台。它支持测试，并内置了Git版本控制功能，同时也具有开发环境功能，例如代码补全、代码片段和代码重构等。安装过程十分简单，<a href="https://code.visualstudio.com/">官网</a>下载并按照提示安装即可。</p>
+<p>安装完成后，软件界面默认为英文，可以选择安装并使用中文插件。</p>
+<ol>
+<li>搜索下载简体中文插件</li>
+</ol>
+<img src="/2020/04/03/vscode-verilog/VSCode-Chinese-1.png" class="">
+<ol start="2">
+<li>切换语言</li>
+</ol>
+<img src="/2020/04/03/vscode-verilog/VSCode-Chinese-2.png" class="">
+<ol start="3">
+<li>按照操作重新启动程序，即可设置为中文界面。</li>
+</ol>
+<img src="/2020/04/03/vscode-verilog/VSCode-Chinese-3.png" class="">
+<p>此外，还可以通过设置改变编辑器字体大小（设置 - 文本编辑器 - 字体）以及软件窗口主题色（设置 - 工作台 - 外观）。</p>
+<h3 id="下载插件获得快乐">下载插件获得快乐</h3>
+<p>和安装简体中文插件的步骤差不多，找一个最热门的下载安装。</p>
+<img src="/2020/04/03/vscode-verilog/VSCode-Verilog-1.png" class="">
+<p>至此，在使用VS Code编辑.v文件时就可以体会<strong>自动补全语句</strong>的快乐了！只要选择语言模式为Verilog即可。</p>
+<img src="/2020/04/03/vscode-verilog/VSCode-Verilog-2.png" class="">
+<p>放个动图大家感受一下：</p>
+<img src="/2020/04/03/vscode-verilog/VSCode-Verilog-Show.gif" class="">
+<p>如果只是想敲代码自动补全的话，看到这里其实就可以了。如果各科作业都写完了，可以再往下看看。</p>
+<h2 id="更多快乐">更多快乐</h2>
+<h3 id="更改Vivado默认编辑器">更改Vivado默认编辑器</h3>
+<p>打开设置（Tools - Settings…），将Text Editor中的Current Editor改为Custom Editor…，在弹出的窗口中输入：</p>
+<figure class="highlight plaintext"><figcaption><span>Line</span></figcaption><table><tr><td class="code"><pre><span class="line">C:/Program Files/Microsoft VS Code/Code.exe -g [file name]:[line number]</span><br></pre></td></tr></table></figure>
+<p>其中，前面的那一串字符表示你电脑上VS Code的安装位置，请根据个人实际情况自行修改。</p>
+<p>这样一波操作之后，在Vivado中打开.v文件将自动跳转至VS Code中进行操作。</p>
+<img src="/2020/04/03/vscode-verilog/VSCode-Vivado.gif" class="">
+<h3 id="安装Ctags实现高级功能">安装Ctags实现高级功能</h3>
+<p>本文1.2中提到的插件，除自动补全一些代码外，还具有Document Symbols Outline、Go to Definition等一些看不懂的便捷功能，而这些功能需要Ctags支持。笔者虽然不知道Ctags是啥、有什么用，但经过摸索，已经熟练掌握了其安装与卸载。</p>
+<ol>
+<li>
+<p><a href="https://github.com/universal-ctags/ctags-win32/releases">点击此处</a>挑一个看得顺眼的版本下载：</p>
+<img src="/2020/04/03/vscode-verilog/Ctags-Download.png" class="">
+</li>
+<li>
+<p>将压缩包解压至电脑的某个角落：</p>
+<img src="/2020/04/03/vscode-verilog/Ctags-Unzip.png" class="">
+</li>
+<li>
+<p>编辑系统变量：</p>
+<p>这一步操作在安装各种软件、环境时十分常见。在Windows搜索框中输入Path，找到并打开“编辑系统环境变量”，在弹出的窗口中点击“环境变量(<u>N</u>)…”，在系统变量中找到“Path”，将上一步解压的文件夹路径添加到Path中。</p>
+<img src="/2020/04/03/vscode-verilog/Path.png" class="">
+</li>
+<li>
+<p>检验安装结果：Win+R调出运行窗口，输入cmd打开命令提示符，输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ctags --version</span><br></pre></td></tr></table></figure>
+<img src="/2020/04/03/vscode-verilog/Ctags-Check.png" class="">
+<p>如果没有报错，那就大功告成了。不出意外的话，VS Code的界面会变成这样：</p>
+<img src="/2020/04/03/vscode-verilog/VSCode-With-Ctags.png" class="">
+<p>左下角的大纲虽然似乎没太大用处，不过看起来很高级。转到定义似乎也很方便。</p>
+<p>PS：完成以上操作后建议重启一下系统。</p>
+</li>
+</ol>
+<h3 id="使用Icarus-Verilog检查语法错误">使用Icarus Verilog检查语法错误</h3>
+<p>本文1.2中提到的插件还支持检查语法错误（linting），此功能可以基于xvlog、iverilog、verilator或者modelsim。其中，xvlog是Vivado自带的，不过在笔者的电脑上似乎并不好用。因此，这里简要介绍一下Icarus Verilog（iVerilog）。</p>
+<p><a href="http://bleyer.org/icarus/">戳此链接</a>下载安装包，按照提示安装。安装过程中有一个复选框“Add executable folder(s) to the user PATH”，要勾选上（如果不勾选就需要手动修改PATH，这样比较麻烦）。</p>
+<p>安装后，在命令提示符中输入iverilog，出现以下结果说明安装成功：</p>
+<img src="/2020/04/03/vscode-verilog/iVerilog-Check.png" class="">
+<p>最后，在VS Code设置中将“Verilog &gt; Linting: Linter”设置为“iverilog”。</p>
+<p>这样，在写代码时，每次Ctrl+S保存之后都会自动检查语法错误。</p>
+<img src="/2020/04/03/vscode-verilog/VSCode-iVerilog.png" class="">
+<hr>
+<p>以上就是本文的全部内容了。如果VS Code出现了什么问题，百度或Google可能会有你想要的答案，或者直接去GitHub上反馈Issue。如果实在解决不了，那就换回朴实的Vivado吧。在VS Code里敲完代码再复制粘贴回Vivado也挺好的。</p>
+<h2 id="参考文献">参考文献</h2>
+<p>[1] <a href="https://blog.csdn.net/qq_39498701/article/details/84668833">南工小王子. Vivado加上VsCode让你的生活更美好.</a></p>
+<p>[2] <a href="https://www.youtube.com/watch?v=FZ-CQ_TT_hs">Michael ee. Visual Stduio Code for Verilog Coding.</a></p>
+<p>[3] <a href="https://code.visualstudio.com/docs/editor/command-line#_core-cli-options">Visual Studio Code Docs. The Visual Studio Code command-line options.</a></p>
+<p>[4] <a href="https://en.wikipedia.org/wiki/Xilinx_Vivado">Xilinx Vivado - Wikipedia.</a></p>
+<p>[5] <a href="https://github.com/mshr-h/vscode-verilog-hdl-support">mshr-h. Verilog HDL/SystemVerilog support for VS Code.</a></p>
+<p>[6] <a href="https://oopsdump.com/blog/2020/01/vscode%E5%8A%A0iverilog%E7%8E%AF%E5%A2%83/">TERRA. VSCode加iverilog环境.</a></p>
+]]></content>
+      <categories>
+        <category>FPGA</category>
+      </categories>
+      <tags>
+        <tag>Visual Studio Code</tag>
+        <tag>FPGA</tag>
+        <tag>Verilog HDL</tag>
+      </tags>
+  </entry>
+</search>

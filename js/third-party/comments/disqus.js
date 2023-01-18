@@ -3,14 +3,14 @@
 document.addEventListener('page:loaded', () => {
 
   if (CONFIG.disqus.count) {
-    if (window.DISQUSWIDGETS) {
-      window.DISQUSWIDGETS.getCount({ reset: true });
-    } else {
-      // Defer loading until the whole page loading is completed
+    const loadCount = () => {
       NexT.utils.getScript(`https://${CONFIG.disqus.shortname}.disqus.com/count.js`, {
-        attributes: { id: 'dsq-count-scr', defer: true }
+        attributes: { id: 'dsq-count-scr' }
       });
-    }
+    };
+
+    // defer loading until the whole page loading is completed
+    window.addEventListener('load', loadCount, false);
   }
 
   if (CONFIG.page.comments) {
