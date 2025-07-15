@@ -115,7 +115,7 @@ npm install hexo-image-link --save              # 用于在文章中插入图片
 deploy:
   type: 'git'
   repository: git@github.com:<username>/<username>.github.io.git
-  branch: main
+  branch: deploy
 ```
 
 至此，环境就搭建好了。你可以执行 `hexo g` 生成静态网页，然后执行 `hexo s` 启动本地服务器预览。这时，使用浏览器进入[http://localhost:4000/](http://localhost:4000/)就可以预览 Hexo 生成的网页了。按下 `Ctrl+C` 可以关闭本地服务器。执行 `hexo d` 将网页部署到 GitHub 上，稍等一分钟后，就可以在浏览器中访问你的博客网站了。
@@ -191,14 +191,14 @@ cp ./node_modules/hexo-theme-next/_config.yml _config.next.yml
 
     on:
     push:
-        branches: [ source ]
+        branches: [ main ]
 
     jobs:
     build-and-deploy:
         runs-on: ubuntu-latest
         
         steps:
-        - name: Checkout source
+        - name: Checkout main
         uses: actions/checkout@v4
         
         - name: Setup Node.js
@@ -228,11 +228,11 @@ cp ./node_modules/hexo-theme-next/_config.yml _config.next.yml
             
         - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
-        if: github.ref == 'refs/heads/source'
+        if: github.ref == 'refs/heads/main'
         with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
             publish_dir: ./public
-            publish_branch: main
+            publish_branch: deploy
             force_orphan: true
             enable_jekyll: false
             keep_files: false
@@ -240,15 +240,15 @@ cp ./node_modules/hexo-theme-next/_config.yml _config.next.yml
 
 1. 前往 GitHub 仓库 Settings → Actions → General，在 "Workflow permissions" 部分，选择 "Read and write permissions" 并保存更改。
 
-1. 在根目录初始化 Git 仓库，并且将本地源码推送到新分支，比如 `source`：
+1. 在根目录初始化 Git 仓库，并且将本地源码推送到新分支，比如 `main`：
 
     ```bash
     git init    # 在根目录初始化
     git add .   # 添加所有文件
     git commit -m "Initial commit"  # 提交
-    git branch -M source    # 重命名本地主分支为 source
+    git branch -M main    # 重命名本地主分支为 main
     git remote add origin git@github.com:<username>/<username>.github.io.git    # 连接远程仓库
-    git push -u origin source   # 推送到远程仓库
+    git push -u origin main   # 推送到远程仓库
     ```
 
     或许你已经注意到，根目录已经存在了 `.gitignore` 文件，这是刚刚初始化 Hexo 时就已经创建的，其内容为：

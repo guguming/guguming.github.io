@@ -2,14 +2,14 @@ name: Deploy Hexo to GitHub Pages
 
 on:
   push:
-    branches: [ source ]
+    branches: [ main ]
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Checkout source
+    - name: Checkout main
       uses: actions/checkout@v4
     
     - name: Setup Node.js
@@ -39,10 +39,10 @@ jobs:
         
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
-      if: github.ref == 'refs/heads/source'
+      if: github.ref == 'refs/heads/main'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./public
-        publish_branch: main
+        publish_branch: deploy
         force_orphan: true
         enable_jekyll: false

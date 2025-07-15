@@ -115,4 +115,4 @@ theme: next
 # deploy:
 #   type: 'git'
 #   repository: git@github.com:guguming/guguming.github.io.git
-#   branch: main
+#   branch: deploy
