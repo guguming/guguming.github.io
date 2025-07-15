@@ -238,6 +238,8 @@ cp ./node_modules/hexo-theme-next/_config.yml _config.next.yml
             keep_files: false
     ```
 
+1. 前往 GitHub 仓库 Settings → Actions → General，在 "Workflow permissions" 部分，选择 "Read and write permissions" 并保存更改。
+
 1. 在根目录初始化 Git 仓库，并且将本地源码推送到新分支，比如 `source`：
 
     ```bash
