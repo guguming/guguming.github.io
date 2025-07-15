@@ -77,7 +77,7 @@ cat ~/.ssh/id_rsa.pub
 
 ```bash
 $ ssh -T git@github.com
-Hi guguming! You've successfully authenticated, but GitHub does not provide shell access.
+Hi <username>! You've successfully authenticated, but GitHub does not provide shell access.
 ```
 
 如果出现以下提示，输入`yes`然后回车：
@@ -172,8 +172,174 @@ cp ./node_modules/hexo-theme-next/_config.yml _config.next.yml
 
 修改其中的内容就可对主题进行配置，详见[主题文档](https://theme-next.js.org/docs/theme-settings/)。
 
+## 基于 GitHub Actions 自动部署
+
+上述操作，只将构建好的网页部署到了 GitHub 上，而没有对 `.md` 源文件进行备份。基于 GitHub Actions，我们可以实现自动部署，省去本地构建的步骤，从而更专注于写作。下面进行简要介绍。
+
+1. 卸载不再需要的 `hexo-deployer-git` 插件：
+
+    ```bash
+    npm uninstall hexo-deployer-git --save
+    ```
+
+    同时，在 `_config.yml` 文件中，注释掉 `Deployment` 部分的配置，因为已经不需要了。
+
+1. 在仓库根目录下新建 `.github/workflows/deploy.yml` 文件，内容如下：
+
+    ```yml
+    name: Deploy Hexo to GitHub Pages
+
+    on:
+    push:
+        branches: [ source ]
+
+    jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+        
+        steps:
+        - name: Checkout source
+        uses: actions/checkout@v4
+        
+        - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+            node-version: '22'
+            cache: 'npm'
+    
+        - name: Cache Hexo files
+        uses: actions/cache@v4
+        with:
+            path: |
+            db.json
+            .deploy_git
+            public
+            key: hexo-${{ runner.os }}-${{ hashFiles('_config.yml', '_config.next.yml', 'package-lock.json') }}
+            restore-keys: |
+            hexo-${{ runner.os }}-
+
+        - name: Install dependencies
+        run: npm ci
+        
+        - name: Clean and generate
+        run: |
+            npm run clean
+            npm run build
+            
+        - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        if: github.ref == 'refs/heads/source'
+        with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_dir: ./public
+            publish_branch: main
+            force_orphan: true
+            enable_jekyll: false
+            keep_files: false
+    ```
+
+1. 在根目录初始化 Git 仓库，并且将本地源码推送到新分支，比如 `source`：
+
+    ```bash
+    git init    # 在根目录初始化
+    git add .   # 添加所有文件
+    git commit -m "Initial commit"  # 提交
+    git branch -M source    # 重命名本地主分支为 source
+    git remote add origin git@github.com:<username>/<username>.github.io.git    # 连接远程仓库
+    git push -u origin source   # 推送到远程仓库
+    ```
+
+    或许你已经注意到，根目录已经存在了 `.gitignore` 文件，这是刚刚初始化 Hexo 时就已经创建的，其内容为：
+
+    ```gitignore
+    .DS_Store
+    Thumbs.db
+    db.json
+    *.log
+    node_modules/
+    public/
+    .deploy*/
+    _multiconfig.yml
+    ```
+
+    这为我们提供了一些方便。
+
+1. 每次写作完成后，执行以下命令即可将文章推送到 GitHub：
+
+    ```bash
+    git add .
+    git commit -m "Update"
+    git push
+    ```
+
+    或者在 Visual Studio Code 中使用源代码管理功能进行提交和推送。
+
+## 实用功能：文章时效性提示
+
+一些文章很容易随时间过时，如何添加提醒呢？以下是简单的示范。
+
+1. 在仓库根目录下新建 `scripts` 文件夹，并在其中新建 `injector.js` 文件，内容如下：
+
+    ```Javascript
+    //注入文章过期提示
+    hexo.extend.injector.register('body_end', `<script src="/js/outdate.js"></script>`,'post')
+    ```
+
+1. 在仓库根目录下新建 `source/js` 文件夹，并在其中新建 `outdate.js` 文件，内容如下（部分代码由人工智能生成）：
+
+    ```Javascript
+    // 文章时效性提示 - 简化版本，充分信任 Hexo/NexT 的结构化 HTML
+    (function() {
+    'use strict';
+
+    // 配置参数
+    const CONFIG = {
+        warningDays: 200,
+        errorDays: 400,
+        warningClass: 'note warning',
+        errorClass: 'note danger',
+        title: '文章时效性提示',
+        template: '这是一篇{type}于 {time} 前的文章，部分信息可能已发生改变，请注意甄别。'
+    };
+
+    // 仅在文章页面执行（信任 NexT 主题的 DOM 结构）
+    const postBody = document.querySelector('.post-body');
+    if (!postBody) return;
+
+    // 信任 Hexo 的结构化时间元素（使用标准 Schema.org microdata）
+    const updateTimeEl = document.querySelector('time[itemprop*="dateModified"]');
+    const publishTimeEl = document.querySelector('time[itemprop*="dateCreated"], time[itemprop*="datePublished"]');
+
+    if (!publishTimeEl) return; // 静默失败，避免控制台噪音
+
+    // 信任 Hexo 生成的 datetime 属性格式
+    const referenceTime = updateTimeEl?.dateTime || publishTimeEl.dateTime;
+    const diffDays = Math.floor((Date.now() - new Date(referenceTime)) / 86400000);
+
+    // 简化的时间格式化
+    const formatTimeAgo = days => {
+        const years = Math.floor(days / 365);
+        const months = Math.floor((days % 365) / 30);
+        return years ? `${years} 年${months ? ` ${months} 个月` : ''}` :
+            months ? `${months} 个月` : `${days} 天`;
+    };
+
+    // 添加时效性提示
+    if (diffDays > CONFIG.warningDays) {
+        const notice = Object.assign(document.createElement('div'), {
+        className: diffDays >= CONFIG.errorDays ? CONFIG.errorClass : CONFIG.warningClass,
+        innerHTML: `<h5>${CONFIG.title}</h5><p>${CONFIG.template
+            .replace('{time}', formatTimeAgo(diffDays))
+            .replace('{type}', updateTimeEl ? '更新' : '发布')}</p>`
+        });
+
+        postBody.insertAdjacentElement('afterbegin', notice);
+    }
+    })();
+    ```
+
 ## 参考文献
 
 [1] [超详细Hexo+Github博客搭建小白教程 | 韦阳的博客](https://godweiyang.com/2018/04/13/hexo-blog/)
 [2] [Hexo 插入图片_疾风jf的博客-CSDN博客](https://blog.csdn.net/rentonhe/article/details/123666769)
-[3] [NexT - Theme for Hexo](https://theme-next.js.org/)
+[3] [Hexo博客进阶：为 Next 主题的 Hexo 博客内容添加文章过期/时效提示_hexo配置过期时间-CSDN博客](https://blog.csdn.net/jiunian_2761/article/details/126763510)
