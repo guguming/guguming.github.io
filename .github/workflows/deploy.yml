@@ -3,8 +3,6 @@ name: Deploy Hexo to GitHub Pages
 on:
   push:
     branches: [ source ]
-  pull_request:
-    branches: [ source ]
 
 jobs:
   build-and-deploy:
@@ -13,15 +11,24 @@ jobs:
     steps:
     - name: Checkout source
       uses: actions/checkout@v4
-      with:
-        submodules: false
-        
+    
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '22'
         cache: 'npm'
-        
+  
+    - name: Cache Hexo files
+      uses: actions/cache@v4
+      with:
+        path: |
+          db.json
+          .deploy_git
+          public
+        key: hexo-${{ runner.os }}-${{ hashFiles('_config.yml', '_config.next.yml', 'package-lock.json') }}
+        restore-keys: |
+          hexo-${{ runner.os }}-
+
     - name: Install dependencies
       run: npm ci
       
@@ -31,11 +38,11 @@ jobs:
         npm run build
         
     - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+      uses: peaceiris/actions-gh-pages@v4
       if: github.ref == 'refs/heads/source'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./public
         publish_branch: main
-        user_name: 'github-actions[bot]'
-        user_email: 'github-actions[bot]@users.noreply.github.com'
+        force_orphan: true
+        enable_jekyll: false
