@@ -103,7 +103,7 @@ toc;
 
 ## 优化文件打开参数
 
-数据基本上只由 ASCII 字符组成（数字、逗号、换行等），我们可以优化 `fopen` 的参数，这里显式指定机器格式为 'native'，避免做不必要的字节序转换；同时将字符编码固定为 US-ASCII，跳过自动编码检测，从而进一步提升性能：
+数据基本上只由 ASCII 字符组成（数字、逗号、换行等），我们可以优化 `fopen` 的参数，这里显式指定机器格式为 `'native'`，避免做不必要的字节序转换；同时将字符编码固定为 US-ASCII，跳过自动编码检测，从而进一步提升性能：
 
 ```MATLAB
 fid = fopen(filePath, 'r', 'n', 'US-ASCII');
@@ -214,7 +214,8 @@ function [header_line, data_start_pos] = find_data_header(file_content)
         header_line = file_content(line_start:line_end);
         data_start_pos = line_end + 2;         % 跳到下一行开头（兼容 \r?\n）
     end
-end```
+end
+```
 
 > 历时 0.052721 秒。
 
