@@ -1,16 +1,12 @@
 ---
-title: 基于 Hexo 和 GitHub 搭建个人博客网站
-date: 2020-06-27 23:33:33
-tags:
-- Hexo
-- GitHub
-categories:
-- 瞎折腾
+title: 🛠️ 基于 Hexo 和 GitHub 搭建个人博客网站
+date: 2020-06-27T23:33:33+08:00
+url: /hexo-github-intro/
 ---
 
 本文介绍基于 Hexo 和 GitHub 搭建个人博客网站的简要步骤。
 
-<!-- more -->
+<!--more-->
 
 ## 环境搭建
 
@@ -18,23 +14,21 @@ categories:
 
 首先安装 [fnm](https://github.com/Schniz/fnm)，这是一个 Node.js 版本管理工具。Node.js 是一个 JavaScript 运行环境，Hexo 静态博客生成器基于它运行。
 
-{% tabs fnm %}
-<!-- tab Windows -->
+#### Windows
+
 使用 winget 安装 fnm：
 
 ```PowerShell
 winget install Schniz.fnm
 ```
-<!-- endtab -->
 
-<!-- tab Linux -->
+#### Linux
+
 确保已经安装了 `curl` 和 `unzip`，然后运行：
 
 ```bash
 curl -fsSL https://fnm.vercel.app/install | bash
 ```
-<!-- endtab -->
-{% endtabs %}
 
 然后使用 fnm 安装 Node.js 最新 LTS 版本（当前是 22）：
 

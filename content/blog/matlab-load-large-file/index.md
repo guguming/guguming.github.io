@@ -1,12 +1,8 @@
 ---
-title: MATLAB 读取大型文本数据文件的方法
-date: 2025-12-11 23:57:40
-updated: 2025-12-11 23:57:40
-tags:
-- MATLAB
-- Data Processing
-categories:
-- MATLAB
+title: 🛠️ MATLAB 读取大型文本数据文件的方法
+date: 2025-12-11T23:57:40+08:00
+lastmod: 2025-12-11T23:57:40+08:00
+url: /matlab-load-large-file/
 ---
 
 很多测试数据存储在大型文本文件（如 CSV）中。考虑采样率为 1kHz 的情况，持续采集几分钟就能产生百万行数据文件。
@@ -18,7 +14,7 @@ categories:
 
 本文介绍提升 MATLAB 读取大型文本数据文件性能的方法。
 
-<!-- more -->
+<!--more-->
 
 ## 读取大文件：使用 `textscan` 替代 `readtable`
 

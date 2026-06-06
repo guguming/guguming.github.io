@@ -1,0 +1,34 @@
+@media (min-width: 1280px) {
+    .post-single > details.toc {
+        position: fixed;
+        top: calc(var(--header-height) + 24px);
+        left: max(24px, calc((100vw - var(--main-width)) / 2 - 288px));
+        width: 248px;
+        max-height: calc(100vh - var(--header-height) - 48px);
+        margin: 0;
+        overflow: auto;
+        font-size: 0.92rem;
+    }
+
+    .post-single > details.toc summary {
+        padding: 0.55rem 1rem;
+    }
+
+    .post-single > details.toc .inner {
+        margin: 0;
+        padding: 0 1rem 0.85rem;
+    }
+
+    .post-single > details.toc ul {
+        padding-inline-start: 1rem;
+    }
+
+    .post-single > details.toc li {
+        margin: 0.35rem 0;
+    }
+
+    .post-single > details.toc a {
+        display: block;
+        line-height: 1.35;
+    }
+}

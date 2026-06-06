@@ -1,48 +1,67 @@
-name: Deploy Hexo to GitHub Pages
+name: Deploy Hugo to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-    
+    env:
+      HUGO_VERSION: 0.162.1
+      TZ: Asia/Shanghai
     steps:
-    - name: Checkout main
-      uses: actions/checkout@v4
-    
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '22'
-        cache: 'npm'
-  
-    - name: Cache Hexo files
-      uses: actions/cache@v4
-      with:
-        path: |
-          db.json
-          .deploy_git
-          public
-        key: hexo-${{ runner.os }}-${{ hashFiles('_config.yml', '_config.next.yml', 'package-lock.json') }}
-        restore-keys: |
-          hexo-${{ runner.os }}-
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
 
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Clean and generate
-      run: |
-        npm run clean
-        npm run build
-        
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v4
-      if: github.ref == 'refs/heads/main'
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./public
-        publish_branch: deploy
-        force_orphan: true
-        enable_jekyll: false
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Install Hugo
+        run: |
+          curl -sLJO "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz"
+          mkdir "${RUNNER_TEMP}/hugo"
+          tar -C "${RUNNER_TEMP}/hugo" -xf "hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz"
+          echo "${RUNNER_TEMP}/hugo" >> "${GITHUB_PATH}"
+
+      - name: Build
+        run: |
+          hugo \
+            --gc \
+            --minify \
+            --cleanDestinationDir \
+            --baseURL "${{ steps.pages.outputs.base_url }}/"
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./public
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

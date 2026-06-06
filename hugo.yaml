@@ -1,0 +1,75 @@
+baseURL: https://guguming.github.io/
+title: 王一咕的博客
+theme: PaperMod
+timeZone: Asia/Shanghai
+hasCJKLanguage: true
+enableRobotsTXT: true
+defaultContentLanguage: zh
+
+disableKinds:
+  - taxonomy
+  - term
+
+languages:
+  zh:
+    locale: zh-CN
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+markup:
+  highlight:
+    codeFences: true
+    guessSyntax: true
+    lineNos: true
+    noClasses: false
+    style: monokai
+
+menu:
+  main:
+    - identifier: blog
+      name: Blog
+      url: /blog/
+      weight: 10
+    - identifier: search
+      name: 🔍
+      title: 搜索
+      url: /search/
+      weight: 20
+
+params:
+  env: production
+  description: Pigeon Coo Coo
+  author: Monty Wang
+  DateFormat: 2006-01-02
+  ShowReadingTime: true
+  ShowWordCount: true
+  ShowToc: true
+  TocOpen: true
+  ShowBreadCrumbs: true
+  ShowPostNavLinks: true
+  ShowCodeCopyButtons: true
+  UseHugoToc: true
+  mainSections:
+    - blog
+
+  assets:
+    favicon: /images/favicon.ico
+    favicon16x16: /images/favicon-16x16.png
+    favicon32x32: /images/favicon-32x32.png
+    apple_touch_icon: /images/apple-touch-icon.png
+    safari_pinned_tab: /images/favicon.svg
+
+  profileMode:
+    enabled: true
+    subtitle: Pigeon Coo Coo
+    imageUrl: /uploads/avatar.png
+    imageTitle: avatar
+    imageWidth: 150
+    imageHeight: 150
+    buttons:
+      - name: Blog
+        url: /blog/
