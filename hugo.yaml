@@ -34,6 +34,10 @@ menu:
       name: Blog
       url: /blog/
       weight: 10
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 15
     - identifier: search
       name: 🔍
       title: 搜索
