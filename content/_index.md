@@ -1,4 +1,3 @@
 ---
-title: 王一咕的博客
+title: Monty Wang's Blog
 ---
-

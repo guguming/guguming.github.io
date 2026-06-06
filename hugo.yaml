@@ -1,5 +1,5 @@
 baseURL: https://guguming.github.io/
-title: 王一咕的博客
+title: Monty Wang's Blog
 theme: PaperMod
 timeZone: Asia/Shanghai
 hasCJKLanguage: true
@@ -34,6 +34,10 @@ menu:
       name: Blog
       url: /blog/
       weight: 10
+    - identifier: notes
+      name: Notes
+      url: /notes/
+      weight: 12
     - identifier: about
       name: About
       url: /about/
@@ -77,3 +81,5 @@ params:
     buttons:
       - name: Blog
         url: /blog/
+      - name: Notes
+        url: /notes/
